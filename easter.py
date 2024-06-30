@@ -1,9 +1,7 @@
-from datetime import datetime
+from datetime import date
 
-def easter(date_str, input_format='%Y-%m-%d'):
+def easter(year):
     try:
-        date_obj = datetime.strptime(date_str, input_format)
-        year = date_obj.year
         a = year % 19
         b = year // 100
         c = year % 100
@@ -18,12 +16,7 @@ def easter(date_str, input_format='%Y-%m-%d'):
         m = (a + 11 * h + 22 * l) // 451
         n = (h + l - 7 * m + 114) // 31
         p = (h + l - 7 * m + 114) % 31
-        easter_date = datetime(year=year, month=n, day=p + 1)
+        easter_date = date(year=year, month=n, day=p + 1)
         return easter_date
     except ValueError as e:
         return str(e)
-
-# Example usage
-paaske = easter('2018-06-28')
-print(paaske)  # Output: 2024-03-31 00:00:00
-print(paaske.date())
