@@ -1,7 +1,13 @@
 from easter import easter
 from datetime import timedelta, date
 
-
+"""
+This function checks if a given date is a Danish bank holiday.
+It calculates the Easter date for the given year and then checks
+if the input date matches any of the predefined Danish bank holidays
+or falls on a weekend. Returns True if the date is a
+regular working day, and False if it's a bank holiday or weekend.
+"""
 def erDanskBankdag(date_obj):
     paaske = easter(date_obj.year)
     helligdag = [
@@ -28,3 +34,5 @@ def erDanskBankdag(date_obj):
         return False
 
     return True
+
+print(erDanskBankdag(date(2023,1,5)))
