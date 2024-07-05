@@ -34,5 +34,3 @@ def erDanskBankdag(date_obj):
         return False
 
     return True
-
-print(erDanskBankdag(date(2023,1,5)))
