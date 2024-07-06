@@ -3,16 +3,16 @@ from datetime import date
 def easter(year):
     """Calculate the date of Easter Sunday for a given year.
 
-Args:
-    year (int): The year for which to calculate Easter Sunday.
+        Args:
+            year (int): The year for which to calculate Easter Sunday.
 
-Returns:
-    date: The date of Easter Sunday for the given year.
+        Returns:
+            date: The date of Easter Sunday for the given year.
 
-Example:
-    >>> easter(2023)
-    datetime.date(2023, 4, 9)
-"""
+        Example:
+            >>> easter(2023)
+            datetime.date(2023, 4, 9)
+    """
     try:
         a = year % 19
         b = year // 100
