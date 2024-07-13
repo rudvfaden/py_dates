@@ -1,10 +1,11 @@
 from easter import easter
 from datetime import timedelta, date
 
+
 def is_danish_bank_holiday(date_obj: date) -> bool:
     if not isinstance(date_obj, date):
         raise TypeError("Input must be a `date` object.")
-    
+
     paaske = easter(date_obj.year)
     helligdag = {
         # påske
@@ -37,27 +38,29 @@ def is_danish_bank_holiday(date_obj: date) -> bool:
         date(date_obj.year, 6, 5)
     }
 
-    if date_obj in helligdag or date_obj.weekday() >= 5:
+    if date_obj in helligdag or date_obj.weekday() > 4:
         return False
 
     return True
 
+
 def danish_bank_holiday_before(date_obj: date) -> date:
     if not isinstance(date_obj, date):
         raise TypeError("Input must be a `date` object.")
-    
+
     for i in range(9):
-        date_to_check=date_obj + timedelta(-i)
+        date_to_check = date_obj + timedelta(-i)
         if is_danish_bank_holiday(date_to_check):
             return date_to_check
     raise ValueError("No bank holiday found within the range.")
 
+
 def danish_bank_holiday_after(date_obj: date) -> date:
     if not isinstance(date_obj, date):
         raise TypeError("Input must be a `date` object.")
-    
+
     for i in range(9):
-        date_to_check=date_obj + timedelta(i)
+        date_to_check = date_obj + timedelta(i)
         if is_danish_bank_holiday(date_to_check):
             return date_to_check
-    raise ValueError("No bank holiday found within the range.")        
+    raise ValueError("No bank holiday found within the range.")
