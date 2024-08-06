@@ -11,8 +11,6 @@ def is_danish_bank_holiday(date_obj: date) -> bool:
         Returns:
             bool: True if the date is a Danish bank holiday, False otherwise.
     """
-    if not isinstance(date_obj, date):
-        raise TypeError("Input must be a `date` object.")
 
     paaske = easter(date_obj.year)
     helligdag = {
@@ -65,14 +63,11 @@ def danish_bank_holiday_before(date_obj: date) -> date:
         TypeError: If the input is not a `date` object.
         ValueError: If no bank holiday is found within the range.
     """
-    if not isinstance(date_obj, date):
-        raise TypeError("Input must be a `date` object.")
-    else:
-        for i in range(9):
-            date_to_check = date_obj + timedelta(-i)
-            if is_danish_bank_holiday(date_to_check):
-                return date_to_check
-        raise ValueError("No bank holiday found within the range.")
+    for i in range(9):
+        date_to_check = date_obj + timedelta(-i)
+        if is_danish_bank_holiday(date_to_check):
+            return date_to_check
+    raise ValueError("No bank holiday found within the range.")
 
 
 def danish_bank_holiday_after(date_obj: date) -> date:
@@ -88,11 +83,9 @@ def danish_bank_holiday_after(date_obj: date) -> date:
         TypeError: If the input is not a `date` object.
         ValueError: If no bank holiday is found within the range.
     """
-    if not isinstance(date_obj, date):
-        raise TypeError("Input must be a `date` object.")
-    else:
-        for i in range(9):
-            date_to_check = date_obj + timedelta(i)
-            if is_danish_bank_holiday(date_to_check):
-                return date_to_check
-        raise ValueError("No bank holiday found within the range.")
+
+    for i in range(9):
+        date_to_check = date_obj + timedelta(i)
+        if is_danish_bank_holiday(date_to_check):
+            return date_to_check
+    raise ValueError("No bank holiday found within the range.")
