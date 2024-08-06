@@ -60,7 +60,6 @@ def danish_bank_holiday_before(date_obj: date) -> date:
         date: The latest Danish bank holiday before the given date.
 
     Raises:
-        TypeError: If the input is not a `date` object.
         ValueError: If no bank holiday is found within the range.
     """
     for i in range(9):
@@ -80,7 +79,6 @@ def danish_bank_holiday_after(date_obj: date) -> date:
         date: The next Danish bank holiday date after the input date.
 
     Raises:
-        TypeError: If the input is not a `date` object.
         ValueError: If no bank holiday is found within the range.
     """
 
