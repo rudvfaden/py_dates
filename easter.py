@@ -1,6 +1,6 @@
 from datetime import date
 
-def easter(year):
+def easter(year: int) -> date:
     """Calculate the date of Easter Sunday for a given year.
 
         Args:
