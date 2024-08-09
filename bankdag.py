@@ -12,7 +12,7 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
         paaske + timedelta(days=39): "Kristi himmelfartsdag",
         paaske + timedelta(days=49): "Pinsedag",
         paaske + timedelta(days=50): "2. Pinsedag",
-        date(year, 12, 24): "Julseaftensdag",
+        date(year, 12, 24): "Juleaftensdag",
         date(year, 12, 25): "Juledag",
         date(year, 12, 26): "2. Juledag",
         date(year, 1, 1): "Nytårsdag",
