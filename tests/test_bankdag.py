@@ -21,7 +21,7 @@ class Testis_danish_bank_holiday(unittest.TestCase):
         self.assertEqual(danish_bank_holiday(
             2023, '2. Pinsedag'), date(2023, 5, 29))
         self.assertEqual(danish_bank_holiday(
-            2023, 'Julseaftensdag'), date(2023, 12, 24))
+            2023, 'Juleaftensdag'), date(2023, 12, 24))
         self.assertEqual(danish_bank_holiday(
             2023, 'Juledag'), date(2023, 12, 25))
         self.assertEqual(danish_bank_holiday(
