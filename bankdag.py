@@ -3,6 +3,18 @@ from datetime import timedelta, date
 
 
 def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
+    """Calculate Danish bank holidays for a given year.
+
+    Args:
+        year (int): The year for which to calculate bank holidays.
+        hellidagNavn (str, optional): The name of the holiday to retrieve. Defaults to None.
+
+    Returns:
+        str or dict: If hellidagNavn is provided, returns the date of the specified holiday. If not provided, returns a dictionary of all bank holidays for the year.
+    """
+    if not isinstance(year, int) or year <= 0:
+        raise ValueError("Year must be a valid positive integer.")
+    
     paaske = easter(year)
     helligdag = {
         paaske: "Påske",
