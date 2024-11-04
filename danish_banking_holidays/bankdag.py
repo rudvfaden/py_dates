@@ -46,7 +46,8 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
         return reversedHelligdagDict.get(hellidagNavn.lower(), "Holiday not found")
 
     # If no hellidagNavn is provided, return the entire dictionary
-    return helligdag
+    sorted_helligdag = dict(sorted(helligdag.items()))
+    return sorted_helligdag
 
 
 def is_danish_bank_holiday(date_obj: date) -> bool:
