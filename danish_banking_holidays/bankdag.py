@@ -1,4 +1,4 @@
-from easter import easter
+from .easter import easter
 from datetime import timedelta, date
 
 
@@ -14,7 +14,7 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
     """
     if not isinstance(year, int) or year <= 0:
         raise ValueError("Year must be a valid positive integer.")
-    
+
     paaske = easter(year)
     helligdag = {
         paaske: "Påske",
