@@ -1,5 +1,4 @@
-from danish_banking_holidays.bankdag import danish_bank_holiday, is_danish_bank_holiday, danish_bank_holiday_after, danish_bank_holiday_before
-from datetime import date
+from danish_banking_holidays.bankdag import *
 
 holidays = danish_bank_holiday(2023)
 for holiday, dates in holidays.items():
