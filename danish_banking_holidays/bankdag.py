@@ -7,10 +7,13 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
 
     Args:
         year (int): The year for which to calculate bank holidays.
-        hellidagNavn (str, optional): The name of the holiday to retrieve. Defaults to None.
+        hellidagNavn (str, optional): The name of the holiday to retrieve.
+        Defaults to None.
 
     Returns:
-        str or dict: If hellidagNavn is provided, returns the date of the specified holiday. If not provided, returns a dictionary of all bank holidays for the year.
+        str or dict: If hellidagNavn is provided, returns the date of the
+        specified holiday. If not provided, returns a dictionary of all bank
+        holidays for the year.
     """
     if not isinstance(year, int) or year <= 0:
         raise ValueError("Year must be a valid positive integer.")
@@ -39,11 +42,15 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
         helligdag[storBededag] = "Stor Bededag"
     if year > 2007:
         fredagEfterKristiHimmelfartsdag = paaske + timedelta(days=40)
-        helligdag[fredagEfterKristiHimmelfartsdag] = "Fredag efter Kristi himmelfartsdag"
+        helligdag[fredagEfterKristiHimmelfartsdag] =\
+            "Fredag efter Kristi himmelfartsdag"
     # If hellidagNavn is provided, check if it exists in the holidays
     if hellidagNavn:
         reversedHelligdagDict = {v.lower(): k for k, v in helligdag.items()}
-        return reversedHelligdagDict.get(hellidagNavn.lower(), "Holiday not found")
+        return reversedHelligdagDict.get(
+            hellidagNavn.lower(),
+            "Holiday not found"
+        )
 
     # If no hellidagNavn is provided, return the entire dictionary
     sorted_helligdag = dict(sorted(helligdag.items()))
@@ -60,7 +67,8 @@ def is_danish_bank_holiday(date_obj: date) -> bool:
             bool: True if the date is a Danish bank holiday, False otherwise.
     """
 
-    if date_obj in danish_bank_holiday(date_obj.year) or date_obj.weekday() > 4:
+    if date_obj in danish_bank_holiday(date_obj.year)\
+            or date_obj.weekday() > 4:
         return True
 
     return False

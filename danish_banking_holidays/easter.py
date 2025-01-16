@@ -1,5 +1,6 @@
 from datetime import date
 
+
 def easter(year: int) -> date:
     """Calculate the date of Easter Sunday for a given year.
 
@@ -24,10 +25,10 @@ def easter(year: int) -> date:
         h = (19 * a + b - d - g + 15) % 30
         i = c // 4
         k = c % 4
-        l = (32 + 2 * e + 2 * i - h - k) % 7
-        m = (a + 11 * h + 22 * l) // 451
-        n = (h + l - 7 * m + 114) // 31
-        p = (h + l - 7 * m + 114) % 31
+        ll = (32 + 2 * e + 2 * i - h - k) % 7
+        m = (a + 11 * h + 22 * ll) // 451
+        n = (h + ll - 7 * m + 114) // 31
+        p = (h + ll - 7 * m + 114) % 31
         easter_date = date(year=year, month=n, day=p + 1)
         return easter_date
     except ValueError as e:
