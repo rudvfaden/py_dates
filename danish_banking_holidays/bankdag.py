@@ -15,8 +15,9 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
         specified holiday. If not provided, returns a dictionary of all bank
         holidays for the year.
     """
-    if not isinstance(year, int) or year <= 0:
-        raise ValueError("Year must be a valid positive integer.")
+    if not isinstance(year, int) or year < 1582:
+        raise ValueError("Year must be a valid positive integer larger\
+            than 1582 .")
 
     paaske = easter(year)
     helligdag = {
@@ -90,7 +91,6 @@ def danish_bank_holiday_before(date_obj: date) -> date:
         date_to_check = date_obj + timedelta(-i)
         if is_danish_bank_holiday(date_to_check) is False:
             return date_to_check
-    raise ValueError("No bank holiday found within the range.")
 
 
 def danish_bank_holiday_after(date_obj: date) -> date:
@@ -110,4 +110,3 @@ def danish_bank_holiday_after(date_obj: date) -> date:
         date_to_check = date_obj + timedelta(i)
         if is_danish_bank_holiday(date_to_check) is False:
             return date_to_check
-    raise ValueError("No bank holiday found within the range.")
