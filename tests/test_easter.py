@@ -17,7 +17,7 @@ def test_easter(year, expected_date):
 
 # Test to cover lines 34-35 (raising ValueError for invalid year)
 def test_easter_invalid_year():
-    with pytest.raises(ValueError, match="Year must be greater than 1583"):
+    with pytest.raises(ValueError, match="Year must be greater than 1582"):
         easter(1582)
 
 
@@ -26,7 +26,7 @@ def test_easter_invalid_year_handling():
     try:
         easter(1582)
     except ValueError as e:
-        assert str(e) == "Year must be greater than 1583"
+        assert str(e) == "Year must be greater than 1582"
 
 
 # Test to cover lines 36-37 by mocking `date` to raise ValueError

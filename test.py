@@ -31,7 +31,7 @@ print(
     {danish_bank_holiday_before}")
 
 
-target_date = date(1583, 1, 1)
+target_date = date(1582, 1, 1)
 print(target_date)
 old_date = is_danish_bank_holiday(target_date)
 print(f'1583 {old_date}')

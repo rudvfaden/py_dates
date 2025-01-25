@@ -15,7 +15,7 @@ def easter(year: int) -> date:
             datetime.date(2023, 4, 9)
     """
     if year < 1583:
-        raise ValueError("Year must be greater than 1583")
+        raise ValueError("Year must be greater than 1582")
     try:
         a = year % 19
         b = year // 100
