@@ -11,7 +11,7 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
         Defaults to None.
 
     Returns:
-        str or dict: If hellidagNavn is provided, returns the date of the
+        date or dict: If hellidagNavn is provided, returns the date of the
         specified holiday. If not provided, returns a dictionary of all bank
         holidays for the year.
     """
