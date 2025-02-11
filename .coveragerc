@@ -1,4 +1,10 @@
 [run]
+branch = True
+source = danish_banking_holidays
+
+[report]
 omit =
+    */__init__.py
+    */tests/*
     setup.py
     test.py
