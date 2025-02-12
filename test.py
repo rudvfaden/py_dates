@@ -9,8 +9,9 @@ from datetime import date
 holidays = danish_bank_holiday(2023)
 for holiday, dates in holidays.items():
     print(f"{holiday}: {dates}")
-
-
+    
+dd = danish_bank_holiday(2023, 'nytårsdag')
+print(dd)
 # Define the date for which you want to check if it's a Danish bank holiday
 target_date_1 = date(2024, 11, 7)
 is_holiday_1 = is_danish_bank_holiday(target_date_1)
@@ -31,7 +32,7 @@ print(
     {danish_bank_holiday_before}")
 
 
-target_date = date(1582, 1, 1)
-print(target_date)
-old_date = is_danish_bank_holiday(target_date)
-print(f'1583 {old_date}')
+# target_date = date(1582, 1, 1)
+# print(target_date)
+# old_date = is_danish_bank_holiday(target_date)
+# print(f'1583 {old_date}')

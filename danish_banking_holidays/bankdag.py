@@ -2,7 +2,7 @@ from .easter import easter
 from datetime import timedelta, date
 
 
-def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
+def danish_bank_holiday(year: int, hellidagNavn: str = None) -> dict:
     """Calculate Danish bank holidays for a given year.
 
     Args:
@@ -11,9 +11,7 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
         Defaults to None.
 
     Returns:
-        date or dict: If hellidagNavn is provided, returns the date of the
-        specified holiday. If not provided, returns a dictionary of all bank
-        holidays for the year.
+        dict: A dictionary of all bank holidays for the year.
     """
     if not isinstance(year, int) or year < 1582:
         raise ValueError("Year must be a valid positive integer larger\
@@ -47,11 +45,10 @@ def danish_bank_holiday(year: int, hellidagNavn: str = None) -> str:
             "Fredag efter Kristi himmelfartsdag"
     # If hellidagNavn is provided, check if it exists in the holidays
     if hellidagNavn:
-        reversedHelligdagDict = {v.lower(): k for k, v in helligdag.items()}
-        return reversedHelligdagDict.get(
-            hellidagNavn.lower(),
-            "Holiday not found"
-        )
+        for dt, name in helligdag.items():
+            if name.lower() == hellidagNavn.lower():
+                return {dt: name}
+        return {"error": "Holiday not found"}
 
     # If no hellidagNavn is provided, return the entire dictionary
     sorted_helligdag = dict(sorted(helligdag.items()))
@@ -67,11 +64,9 @@ def is_danish_bank_holiday(date_obj: date) -> bool:
         Returns:
             bool: True if the date is a Danish bank holiday, False otherwise.
     """
-
-    if date_obj in danish_bank_holiday(date_obj.year)\
-            or date_obj.weekday() > 4:
+    holidays = danish_bank_holiday(date_obj.year)
+    if date_obj in holidays or date_obj.weekday() > 4:
         return True
-
     return False
 
 
@@ -91,6 +86,7 @@ def danish_bank_holiday_before(date_obj: date) -> date:
         date_to_check = date_obj + timedelta(-i)
         if is_danish_bank_holiday(date_to_check) is False:
             return date_to_check
+    raise ValueError("No bank holiday found within the range.")
 
 
 def danish_bank_holiday_after(date_obj: date) -> date:
@@ -105,8 +101,8 @@ def danish_bank_holiday_after(date_obj: date) -> date:
     Raises:
         ValueError: If no bank holiday is found within the range.
     """
-
     for i in range(9):
         date_to_check = date_obj + timedelta(i)
         if is_danish_bank_holiday(date_to_check) is False:
             return date_to_check
+    raise ValueError("No bank holiday found within the range.")

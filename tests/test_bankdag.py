@@ -12,23 +12,21 @@ def test_danish_bank_holiday():
     holidays = danish_bank_holiday(2023)
     assert date(2023, 1, 1) in holidays
     assert holidays[date(2023, 1, 1)] == 'Nytårsdag'
-    assert danish_bank_holiday(2023, 'Påske') == date(2023, 4, 9)
-    assert danish_bank_holiday(2023, 'Skærtorsdag') == date(2023, 4, 6)
-    assert danish_bank_holiday(2023, 'Langfredag') == date(2023, 4, 7)
-    assert danish_bank_holiday(2023, '2. Påskedag') == date(2023, 4, 10)
-    assert danish_bank_holiday(
-        2023, 'Kristi himmelfartsdag') == date(2023, 5, 18)
-    assert danish_bank_holiday(2023, 'Pinsedag') == date(2023, 5, 28)
-    assert danish_bank_holiday(2023, '2. Pinsedag') == date(2023, 5, 29)
-    assert danish_bank_holiday(2023, 'Juleaftensdag') == date(2023, 12, 24)
-    assert danish_bank_holiday(2023, 'Juledag') == date(2023, 12, 25)
-    assert danish_bank_holiday(2023, '2. Juledag') == date(2023, 12, 26)
-    assert danish_bank_holiday(2023, 'Nytårsdag') == date(2023, 1, 1)
-    assert danish_bank_holiday(2023, 'Grundlovsdag') == date(2023, 6, 5)
-    assert danish_bank_holiday(2023, 'Nytåraftensdag') == date(2023, 12, 31)
-    assert danish_bank_holiday(2023, 'Stor Bededag') == date(2023, 5, 5)
-    assert danish_bank_holiday(
-        2023, 'Fredag efter Kristi himmelfartsdag') == date(2023, 5, 19)
+    assert holidays[date(2023, 4, 9)] == 'Påske'
+    assert holidays[date(2023, 4, 6)] == 'Skærtorsdag'
+    assert holidays[date(2023, 4, 7)] == 'Langfredag'
+    assert holidays[date(2023, 4, 10)] == '2. Påskedag'
+    assert holidays[date(2023, 5, 18)] == 'Kristi himmelfartsdag'
+    assert holidays[date(2023, 5, 28)] == 'Pinsedag'
+    assert holidays[date(2023, 5, 29)] == '2. Pinsedag'
+    assert holidays[date(2023, 12, 24)] == 'Juleaftensdag'
+    assert holidays[date(2023, 12, 25)] == 'Juledag'
+    assert holidays[date(2023, 12, 26)] == '2. Juledag'
+    assert holidays[date(2023, 1, 1)] == 'Nytårsdag'
+    assert holidays[date(2023, 6, 5)] == 'Grundlovsdag'
+    assert holidays[date(2023, 12, 31)] == 'Nytåraftensdag'
+    assert holidays[date(2023, 5, 5)] == 'Stor Bededag'
+    assert holidays[date(2023, 5, 19)] == 'Fredag efter Kristi himmelfartsdag'
 
 # Additional tests to cover missing lines
 
