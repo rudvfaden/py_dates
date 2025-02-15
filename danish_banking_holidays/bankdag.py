@@ -70,39 +70,37 @@ def is_danish_bank_holiday(date_obj: date) -> bool:
     return False
 
 
-def danish_bank_holiday_before(date_obj: date) -> date:
-    """Find the latest Danish bank holiday before a given date.
+def first_non_bank_holiday_before(date_obj: date) -> date:
+    """Find the first non-bank holiday before a given date.
 
     Args:
-        date_obj (date): The date to search for the bank holiday.
+        date_obj (date): The date to search for the non-bank holiday.
 
     Returns:
-        date: The latest Danish bank holiday before the given date.
+        date: The first non-bank holiday before the given date.
 
     Raises:
-        ValueError: If no bank holiday is found within the range.
+        ValueError: If no non-bank holiday is found within the range.
     """
     for i in range(9):
         date_to_check = date_obj + timedelta(-i)
-        if is_danish_bank_holiday(date_to_check) is False:
+        if not is_danish_bank_holiday(date_to_check):
             return date_to_check
-    raise ValueError("No bank holiday found within the range.")
 
 
-def danish_bank_holiday_after(date_obj: date) -> date:
-    """Find the next Danish bank holiday after a given date.
+def first_non_bank_holiday_after(date_obj: date) -> date:
+    """Find the first non-bank holiday after a given date.
 
     Args:
         date_obj (date): The date to start searching from.
 
     Returns:
-        date: The next Danish bank holiday date after the input date.
+        date: The first non-bank holiday date after the input date.
 
     Raises:
-        ValueError: If no bank holiday is found within the range.
+        ValueError: If no non-bank holiday is found within the range.
     """
     for i in range(9):
         date_to_check = date_obj + timedelta(i)
-        if is_danish_bank_holiday(date_to_check) is False:
+        if not is_danish_bank_holiday(date_to_check):
             return date_to_check
-    raise ValueError("No bank holiday found within the range.")
