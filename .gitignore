@@ -1,6 +1,59 @@
-__pycache__/*
-tests/__pycache__/*
-*.pyc
-**/env/** 
-.vscode/settings.json
+
+# Python bytecode
+*.py[cod]
+*$py.class
+__pycache__/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.env/
+
+# Testing
 .coverage
+htmlcov/
+.pytest_cache/
+.tox/
+nosetests.xml
+coverage.xml
+
+# Documentation
+docs/_build/
+site/
+
+# IDEs and editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.db
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
