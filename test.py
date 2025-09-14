@@ -21,7 +21,7 @@ print(f"Next business day after Dec 10, 2025 is {next_working_day}")
 
 # Get previous business day
 prev_working_day = calendar.previous_business_day(date(2025, 12, 26))  # Dec 22nd
-print(f"Is Dec 25, 2025 a holiday? {is_holiday}")
+print(f"Previous business day before Dec 26, 2025 is {prev_working_day}")
 
 # Add business days to a date
 future_date = calendar.add_business_days(
