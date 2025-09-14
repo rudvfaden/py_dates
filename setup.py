@@ -12,7 +12,7 @@ except FileNotFoundError:
 
 setup(
     name='danish_holidays',
-    version='0.1',
+    version='0.2.0',  # Version bump for new features
     packages=find_packages(),
     install_requires=[],  # Removed datetime as it's a built-in module.
     author='Rud Faden',
