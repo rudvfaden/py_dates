@@ -1,38 +1,30 @@
-from danish_banking_holidays.bankdag import (
-    danish_bank_holiday,
-    is_danish_bank_holiday,
-    danish_bank_holiday_after,
-    danish_bank_holiday_before
-)
+from danish_banking_holidays.calendar import DanishBankingCalendar
 from datetime import date
 
-holidays = danish_bank_holiday(2023)
-for holiday, dates in holidays.items():
-    print(f"{holiday}: {dates}")
-    
-dd = danish_bank_holiday(2023, 'nytårsdag')
-print(dd)
-# Define the date for which you want to check if it's a Danish bank holiday
-target_date_1 = date(2024, 11, 7)
-is_holiday_1 = is_danish_bank_holiday(target_date_1)
-print(f"Is {target_date_1} a Danish bank holiday? {is_holiday_1}")
+# Create a calendar instance
+calendar = DanishBankingCalendar()
 
-# Define the second date for checking the next Danish bank holiday after it
-target_date_2 = date(2024, 11, 9)
-danish_bank_holiday_after = danish_bank_holiday_after(target_date_2)
-print(
-    f"The next Danish bank holiday after {target_date_2} is on\
-    {danish_bank_holiday_after}")
+# Get all holidays for a year
+holidays = calendar.get_holidays(2025)
+for day, name in holidays.items():
+    print(f"{name}: {day}")
 
-# Define the same second date for checking the previous Danish bank holiday
-# before it
-danish_bank_holiday_before = danish_bank_holiday_before(target_date_2)
-print(
-    f"The last Danish bank holiday before {target_date_2} was on\
-    {danish_bank_holiday_before}")
+# Check if a date is a holiday or weekend
+is_holiday = calendar.is_holiday(date(2025, 12, 10))  # True for Christmas
+print(f"Is Dec 10, 2025 a holiday? {is_holiday}")
 
+# Get next business day
+next_working_day = calendar.next_business_day(
+    date(2025, 12, 10)
+)  # Dec 10th (after Christmas)
+print(f"Next business day after Dec 10, 2025 is {next_working_day}")
 
-# target_date = date(1582, 1, 1)
-# print(target_date)
-# old_date = is_danish_bank_holiday(target_date)
-# print(f'1583 {old_date}')
+# Get previous business day
+prev_working_day = calendar.previous_business_day(date(2025, 12, 26))  # Dec 22nd
+print(f"Is Dec 25, 2025 a holiday? {is_holiday}")
+
+# Add business days to a date
+future_date = calendar.add_business_days(
+    date(2025, 1, 1), 5
+)  # Skips weekends and holidays
+print(f"5 business days after Jan 1, 2025 is {future_date}")
