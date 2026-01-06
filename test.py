@@ -28,3 +28,5 @@ future_date = calendar.add_business_days(
     date(2025, 1, 1), 5
 )  # Skips weekends and holidays
 print(f"5 business days after Jan 1, 2025 is {future_date}")
+
+print("Holiday name for 2025-12-25:", calendar.get_holiday_name(date(2025, 12, 8)))  # Christmas

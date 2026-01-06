@@ -61,6 +61,14 @@ class DanishBankingCalendar:
                 return {dt: name}
         return None
     
+    def get_holiday_name(self, check_date: date) -> Optional[Dict[date, str]]:
+        """Get the name of the holiday for a given date, if it is a holiday."""
+        holidays = self._calculate_holidays(check_date.year)
+        for dt, name in holidays.items():
+            if dt == check_date:
+                return {dt: name}
+        return None
+
     def is_holiday(self, check_date: date) -> bool:
         """Check if a given date is a holiday or weekend."""
         holidays = self._calculate_holidays(check_date.year)
