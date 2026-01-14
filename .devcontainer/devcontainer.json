@@ -1,0 +1,49 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+  "name": "py_dates (Python 3.14)",
+
+  // Use a Dockerfile so we can install system packages required for building native deps.
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+
+  // Add Python feature to ensure correct runtime and tools are available
+  "features": {
+    "ghcr.io/devcontainers/features/python": { "version": "3.14" }
+  },
+
+  // VS Code customizations: extensions and settings
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-azuretools.vscode-docker",
+        "njpwerner.autodocstring"
+      ],
+      "settings": {
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": ["tests"],
+        "editor.formatOnSave": true,
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  },
+
+  // Forward Jupyter's default notebook port
+  "forwardPorts": [8888],
+
+  // Install package in editable mode and optional dev requirements if present. Also install pre-commit if configured.
+  "postCreateCommand": "bash -lc \"python -m pip install --upgrade pip setuptools wheel && pip install -e . || true; if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi; if [ -f .pre-commit-config.yaml ]; then pip install pre-commit && pre-commit install; fi\"",
+
+  // Run tests in background after container starts (non-fatal)
+  "postStartCommand": "bash -lc \"pytest -q || true\"",
+
+  // Use the default non-root user provided by the base image
+  "remoteUser": "vscode"
+}
