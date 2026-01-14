@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 from functools import lru_cache
-from typing import Dict, Optional, Union
+from typing import Dict, Optional
 from .easter import easter
 
 class DanishBankingCalendar:
