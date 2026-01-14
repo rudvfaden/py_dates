@@ -23,7 +23,9 @@
         "ms-python.black-formatter",
         "ms-python.isort",
         "ms-azuretools.vscode-docker",
-        "njpwerner.autodocstring"
+        "njpwerner.autodocstring",
+        "github.copilot",
+        "github.copilot-chat"
       ],
       "settings": {
         "python.testing.pytestEnabled": true,
@@ -39,7 +41,7 @@
   "forwardPorts": [8888],
 
   // Install package in editable mode and optional dev requirements if present. Also install pre-commit if configured.
-  "postCreateCommand": "bash -lc \"python -m pip install --upgrade pip setuptools wheel && pip install -e . || true; if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi; if [ -f .pre-commit-config.yaml ]; then pip install pre-commit && pre-commit install; fi\"",
+  "postCreateCommand": "bash -lc \"python -m pip install --upgrade pip setuptools wheel && python -m pip install pyspark || true; pip install -e . || true; if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi; if [ -f .pre-commit-config.yaml ]; then pip install pre-commit && pre-commit install; fi\"",
 
   // Run tests in background after container starts (non-fatal)
   "postStartCommand": "bash -lc \"pytest -q || true\"",
