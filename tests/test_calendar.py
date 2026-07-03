@@ -25,12 +25,14 @@ def test_calendar_get_holidays(calendar):
     assert holidays[date(2023, 6, 5)] == 'Grundlovsdag'
     assert holidays[date(2023, 12, 31)] == 'Nytåraftensdag'
     assert holidays[date(2023, 5, 5)] == 'Stor Bededag'
-    assert holidays[date(2023, 5, 19)] == 'Fredag efter Kristi himmelfartsdag'
+    assert holidays[date(2023, 5, 19)] == (
+        'Fredag efter Kristi himmelfartsdag'
+    )
 
 
 def test_calendar_invalid_year(calendar):
     with pytest.raises(ValueError):
-        calendar.get_holidays(1581)
+        calendar.get_holidays(1582)
     with pytest.raises(ValueError):
         calendar.get_holidays(2100)
 
@@ -45,6 +47,31 @@ def test_calendar_get_specific_holiday(calendar):
     assert result is None
 
 
+def test_calendar_get_holiday_name(calendar):
+    # Test valid holiday
+    name = calendar.get_holiday_name(date(2023, 12, 25))
+    assert name == "Juledag"
+    # Test backwards compatibility with legacy UDF .get() method
+    assert name.get(date(2023, 12, 25)) == "Juledag"
+
+    # Test non-holiday
+    name = calendar.get_holiday_name(date(2023, 12, 10))
+    assert name is None
+
+
+def test_calendar_cache_mutability(calendar):
+    holidays = calendar.get_holidays(2023)
+    original_len = len(holidays)
+    # Mutate the returned dictionary
+    holidays.clear()
+    assert len(holidays) == 0
+
+    # Ensure next call still returns the full calendar
+    fresh_holidays = calendar.get_holidays(2023)
+    assert len(fresh_holidays) == original_len
+    assert date(2023, 12, 25) in fresh_holidays
+
+
 def test_calendar_is_holiday(calendar):
     assert calendar.is_holiday(date(2023, 4, 9))  # Easter Sunday
     assert calendar.is_holiday(date(2023, 12, 25))  # Christmas
@@ -53,31 +80,40 @@ def test_calendar_is_holiday(calendar):
 
 
 def test_calendar_next_business_day(calendar):
-    # Test over weekend
-    assert calendar.next_business_day(date(2023, 4, 7)) == date(2023, 4, 11)  # Friday to Tuesday (Monday is Easter Monday)
-    # Test over holiday
-    assert calendar.next_business_day(date(2023, 12, 24)) == date(2023, 12, 27)  # Christmas Eve to first working day after Christmas
+    # Test over weekend: Friday to Tuesday (Monday is Easter Monday)
+    assert calendar.next_business_day(date(2023, 4, 7)) == date(2023, 4, 11)
+    # Test over holiday: Christmas Eve to working day after Christmas
+    assert calendar.next_business_day(date(2023, 12, 24)) == date(2023, 12, 27)
 
 
 def test_calendar_previous_business_day(calendar):
     # Test over weekend
-    # The implementation returns the first prior non-holiday business day (skipping all holidays),
+    # The implementation returns the first prior non-holiday business day,
     # which for Easter Monday 2023 is Wednesday 2023-04-05.
-    assert calendar.previous_business_day(date(2023, 4, 10)) == date(2023, 4, 5)
-    # Test over holiday
-    assert calendar.previous_business_day(date(2023, 12, 26)) == date(2023, 12, 22)  # Christmas to last working day before
+    assert calendar.previous_business_day(date(2023, 4, 10)) == date(
+        2023, 4, 5
+    )
+    # Test over holiday: Christmas to last working day before
+    assert calendar.previous_business_day(date(2023, 12, 26)) == date(
+        2023, 12, 22
+    )
 
 
 def test_calendar_add_business_days(calendar):
-    # Add positive days
-    assert calendar.add_business_days(date(2023, 4, 6), 1) == date(2023, 4, 11)  # Thursday before Easter to Tuesday after
-    # Adding 3 business days from 2023-12-22 skips weekend and the 24-26 holidays,
-    # landing on 2023-12-29 with the current semantics.
-    assert calendar.add_business_days(date(2023, 12, 22), 3) == date(2023, 12, 29)  # Before Christmas
+    # Add positive days: Thursday before Easter to Tuesday after
+    assert calendar.add_business_days(date(2023, 4, 6), 1) == date(
+        2023, 4, 11
+    )
+    # Adding 3 business days from 2023-12-22 skips weekend and the 24-26
+    # holidays, landing on 2023-12-29.
+    assert calendar.add_business_days(date(2023, 12, 22), 3) == date(
+        2023, 12, 29
+    )
 
     # Add zero days
     assert calendar.add_business_days(date(2023, 4, 6), 0) == date(2023, 4, 6)
 
     # Add negative days
-    # With current semantics the previous business day before 2023-04-11 is 2023-04-05
-    assert calendar.add_business_days(date(2023, 4, 11), -1) == date(2023, 4, 5)  # Tuesday after Easter to previous business day
+    assert calendar.add_business_days(date(2023, 4, 11), -1) == date(
+        2023, 4, 5
+    )

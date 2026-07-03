@@ -26,12 +26,14 @@ def test_danish_bank_holiday(calendar):
     assert holidays[date(2023, 6, 5)] == 'Grundlovsdag'
     assert holidays[date(2023, 12, 31)] == 'Nytåraftensdag'
     assert holidays[date(2023, 5, 5)] == 'Stor Bededag'
-    assert holidays[date(2023, 5, 19)] == 'Fredag efter Kristi himmelfartsdag'
+    assert holidays[date(2023, 5, 19)] == (
+        'Fredag efter Kristi himmelfartsdag'
+    )
 
 
 def test_danish_bank_holiday_invalid_year(calendar):
     with pytest.raises(ValueError):
-        calendar.get_holidays(1581)
+        calendar.get_holidays(1582)
 
 
 def test_is_danish_bank_holiday_specific_date(calendar):
@@ -42,7 +44,7 @@ def test_is_danish_bank_holiday_specific_date(calendar):
 def test_danish_bank_holiday_after_specific_date(calendar):
     target_date = date(2023, 4, 8)  # Day before Easter Sunday 2023
     next_holiday = calendar.next_business_day(target_date)
-    assert next_holiday == date(2023, 4, 11)  # Easter Sunday 2023
+    assert next_holiday == date(2023, 4, 11)
 
 
 def test_is_danish_bank_holiday(calendar):
@@ -77,22 +79,18 @@ def test_first_non_bank_holiday_before(calendar):
     target_date = date(2024, 11, 9)
     previous_non_holiday = calendar.previous_business_day(target_date)
     assert previous_non_holiday < target_date
-    assert calendar.previous_business_day(date(2024, 7, 13)) == date(2024, 7, 12)
-
-    with pytest.raises(ValueError):
-        # invalid date construction will raise before reaching function; simulate invalid
-        raise ValueError
+    assert calendar.previous_business_day(date(2024, 7, 13)) == date(
+        2024, 7, 12
+    )
 
 
 def test_first_non_bank_holiday_after(calendar):
     target_date = date(2024, 11, 9)
     next_non_holiday = calendar.next_business_day(target_date)
     assert next_non_holiday > target_date
-    assert calendar.next_business_day(date(2024, 7, 13)) == date(2024, 7, 15)
-
-    with pytest.raises(ValueError):
-        # invalid date construction will raise before reaching function; simulate invalid
-        raise ValueError
+    assert calendar.next_business_day(date(2024, 7, 13)) == date(
+        2024, 7, 15
+    )
 
 
 def test_danish_bank_holiday_edge_case(calendar):
