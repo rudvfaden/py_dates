@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
 import os
+
+from setuptools import find_packages, setup
 
 # Read the content of README.md for the long description, if available
 this_directory = os.path.abspath(os.path.dirname(__file__))
@@ -11,7 +12,7 @@ except FileNotFoundError:
     long_description = ''
 
 setup(
-    name='danish_holidays',
+    name='danish_banking_holidays',
     version='0.2.0',  # Version bump for new features
     packages=find_packages(),
     install_requires=[],  # Removed datetime as it's a built-in module.

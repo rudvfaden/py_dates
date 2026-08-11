@@ -1,5 +1,7 @@
-import pytest
 from datetime import date
+
+import pytest
+
 from danish_banking_holidays.easter import easter
 
 

@@ -1,6 +1,8 @@
-import pytest
-from danish_banking_holidays import DanishBankingCalendar
 from datetime import date
+
+import pytest
+
+from danish_banking_holidays import DanishBankingCalendar
 
 
 @pytest.fixture
