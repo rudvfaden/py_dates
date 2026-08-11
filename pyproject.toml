@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "danish-banking-holidays"
+version = "0.2.0"
+description = "A package to calculate Danish banking holidays"
+readme = "README.md"
+requires-python = ">=3.6"
+license = "MIT"
+authors = [{ name = "Rud Faden", email = "rudfaden@gmail.com" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/rudvfaden/py_dates"
+
+[tool.setuptools]
+packages = ["danish_banking_holidays"]
+
+[tool.setuptools.package-data]
+danish_banking_holidays = ["../LICENSE"]

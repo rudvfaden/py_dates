@@ -19,6 +19,7 @@ setup(
     author='Rud Faden',
     author_email='rudfaden@gmail.com',
     description='A package to calculate Danish banking holidays',
+    license='MIT',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/rudvfaden/py_dates',
