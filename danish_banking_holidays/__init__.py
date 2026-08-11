@@ -1,7 +1,7 @@
 """Package exports for danish_banking_holidays.
 
-Exports the `DanishBankingCalendar` class. Legacy wrappers were removed.
+Exports the `DanishBankingCalendar` class.
 """
-from .calendar import DanishBankingCalendar  # noqa: F401
+from .calendar import DanishBankingCalendar
 
 __all__ = ["DanishBankingCalendar"]

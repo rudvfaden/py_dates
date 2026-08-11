@@ -1,6 +1,6 @@
 from datetime import date
 
-from danish_banking_holidays.calendar import DanishBankingCalendar
+from danish_banking_holidays import DanishBankingCalendar
 
 # Create a calendar instance
 calendar = DanishBankingCalendar()
