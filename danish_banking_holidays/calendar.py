@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 from functools import lru_cache
-from typing import Dict, Optional
+
 from .easter import easter
 
 MIN_YEAR = 1583
@@ -18,7 +18,7 @@ class HolidayName(str):
 
 
 @lru_cache(maxsize=128)
-def _calculate_holidays(year: int) -> Dict[date, str]:
+def _calculate_holidays(year: int) -> dict[date, str]:
     """Calculate holidays for a given year with caching."""
     if not isinstance(year, int) or year < MIN_YEAR or year > MAX_YEAR:
         raise ValueError(
@@ -64,16 +64,15 @@ class DanishBankingCalendar:
     MAX_YEAR = MAX_YEAR
 
     def __init__(self):
-        """Initialize the Danish Banking Calendar."""
-        pass
+        """Initialize the Danish Banking Calendar."""      
 
-    def get_holidays(self, year: int) -> Dict[date, str]:
+    def get_holidays(self, year: int) -> dict[date, str]:
         """Get all holidays for a given year."""
         return _calculate_holidays(year).copy()
 
     def get_holiday(
         self, year: int, holiday_name: str
-    ) -> Optional[Dict[date, str]]:
+    ) -> dict[date, str] | None:
         """Get a specific holiday by name for a given year."""
         holidays = _calculate_holidays(year)
         for dt, name in holidays.items():
@@ -81,7 +80,7 @@ class DanishBankingCalendar:
                 return {dt: name}
         return None
 
-    def get_holiday_name(self, check_date: date) -> Optional[HolidayName]:
+    def get_holiday_name(self, check_date: date) -> HolidayName | None:
         """Get the name of the holiday for a given date, if it is a holiday."""
         holidays = _calculate_holidays(check_date.year)
         name = holidays.get(check_date)
