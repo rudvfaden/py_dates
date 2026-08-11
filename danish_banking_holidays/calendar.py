@@ -7,23 +7,11 @@ MIN_YEAR = 1583
 MAX_YEAR = 2099
 
 
-class HolidayName(str):
-    """A string representation of a holiday name.
-
-    Supports a dict-like .get() method for backwards compatibility with legacy
-    UDF implementations.
-    """
-    def get(self, key, default=None):
-        return self
-
-
 @lru_cache(maxsize=128)
 def _calculate_holidays(year: int) -> dict[date, str]:
     """Calculate holidays for a given year with caching."""
     if not isinstance(year, int) or year < MIN_YEAR or year > MAX_YEAR:
-        raise ValueError(
-            f"Year must be between {MIN_YEAR} and {MAX_YEAR}"
-        )
+        raise ValueError(f"Year must be between {MIN_YEAR} and {MAX_YEAR}")
 
     easter_sunday = easter(year)
     holidays = {
@@ -38,7 +26,7 @@ def _calculate_holidays(year: int) -> dict[date, str]:
         date(year, 12, 25): "Juledag",
         date(year, 12, 26): "2. Juledag",
         date(year, 1, 1): "Nytårsdag",
-        date(year, 6, 5): "Grundlovsdag"
+        date(year, 6, 5): "Grundlovsdag",
     }
 
     if year > 2002:
@@ -50,9 +38,7 @@ def _calculate_holidays(year: int) -> dict[date, str]:
 
     if year > 2007:
         fredag_efter_kristi = easter_sunday + timedelta(days=40)
-        holidays[fredag_efter_kristi] = (
-            "Fredag efter Kristi himmelfartsdag"
-        )
+        holidays[fredag_efter_kristi] = "Fredag efter Kristi himmelfartsdag"
 
     return dict(sorted(holidays.items()))
 
@@ -64,15 +50,13 @@ class DanishBankingCalendar:
     MAX_YEAR = MAX_YEAR
 
     def __init__(self):
-        """Initialize the Danish Banking Calendar."""      
+        """Initialize the Danish Banking Calendar."""
 
     def get_holidays(self, year: int) -> dict[date, str]:
         """Get all holidays for a given year."""
         return _calculate_holidays(year).copy()
 
-    def get_holiday(
-        self, year: int, holiday_name: str
-    ) -> dict[date, str] | None:
+    def get_holiday(self, year: int, holiday_name: str) -> dict[date, str] | None:
         """Get a specific holiday by name for a given year."""
         holidays = _calculate_holidays(year)
         for dt, name in holidays.items():
@@ -80,12 +64,12 @@ class DanishBankingCalendar:
                 return {dt: name}
         return None
 
-    def get_holiday_name(self, check_date: date) -> HolidayName | None:
+    def get_holiday_name(self, check_date: date) -> str | None:
         """Get the name of the holiday for a given date, if it is a holiday."""
         holidays = _calculate_holidays(check_date.year)
         name = holidays.get(check_date)
         if name is not None:
-            return HolidayName(name)
+            return name
         return None
 
     def is_holiday(self, check_date: date) -> bool:

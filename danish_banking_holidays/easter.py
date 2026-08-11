@@ -24,12 +24,14 @@ def easter(year: int) -> date:
     century_remainder = century % 4
     secular_correction = (century + 8) // 25
     lunar_correction = (century - secular_correction + 1) // 3
-    moon_sync = (19 * golden_number + century -
-                 century_leap_years - lunar_correction + 15) % 30
+    moon_sync = (
+        19 * golden_number + century - century_leap_years - lunar_correction + 15
+    ) % 30
     century_years_div4 = year_in_century // 4
     year_remainder = year_in_century % 4
-    day_offset = (32 + 2 * century_remainder + 2 *
-                  century_years_div4 - moon_sync - year_remainder) % 7
+    day_offset = (
+        32 + 2 * century_remainder + 2 * century_years_div4 - moon_sync - year_remainder
+    ) % 7
     correction = (golden_number + 11 * moon_sync + 22 * day_offset) // 451
     month = (moon_sync + day_offset - 7 * correction + 114) // 31
     day = (moon_sync + day_offset - 7 * correction + 114) % 31
