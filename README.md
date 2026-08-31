@@ -5,7 +5,7 @@ A Python package for calculating Danish banking holidays and business days.
 ## Installation
 
 ```bash
-pip install danish_holidays
+pip install danish-banking-holidays
 ```
 
 ## Usage
