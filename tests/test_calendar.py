@@ -33,8 +33,6 @@ def test_calendar_get_holidays(calendar):
 def test_calendar_invalid_year(calendar):
     with pytest.raises(ValueError):
         calendar.get_holidays(1582)
-    with pytest.raises(ValueError):
-        calendar.get_holidays(2100)
 
 
 def test_calendar_get_specific_holiday(calendar):

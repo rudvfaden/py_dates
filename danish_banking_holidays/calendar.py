@@ -4,14 +4,13 @@ from functools import lru_cache
 from .easter import easter
 
 MIN_YEAR = 1583
-MAX_YEAR = 2099
 
 
 @lru_cache(maxsize=128)
 def _calculate_holidays(year: int) -> dict[date, str]:
     """Calculate holidays for a given year with caching."""
-    if not isinstance(year, int) or year < MIN_YEAR or year > MAX_YEAR:
-        raise ValueError(f"Year must be between {MIN_YEAR} and {MAX_YEAR}")
+    if not isinstance(year, int) or year < MIN_YEAR:
+        raise ValueError(f"Year must be between {MIN_YEAR}")
 
     easter_sunday = easter(year)
     holidays = {
@@ -47,7 +46,6 @@ class DanishBankingCalendar:
     """A class to handle Danish banking holidays and business calculations."""
 
     MIN_YEAR = MIN_YEAR
-    MAX_YEAR = MAX_YEAR
 
     def __init__(self):
         """Initialize the Danish Banking Calendar."""
