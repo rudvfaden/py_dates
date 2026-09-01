@@ -56,3 +56,5 @@ furture_date = holidayCalendar.add_business_days(
     date(2025, 1, 1), 3
 )  # Should land on Jan 6, 2025 (skipping Jan 1)
 print(f"3 business days after Jan 1, 2025 is {furture_date}")
+
+test = holidayCalendar.get_holidays(1582)
