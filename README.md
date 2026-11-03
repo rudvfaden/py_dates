@@ -49,4 +49,4 @@ future_date = calendar.add_business_days(date(2024, 1, 1), 5)  # Skips weekends 
 
 ## Requirements
 
-Python `>= 3.10`
+Python `>= 3.10` (tested with Python 3.10-3.15)
