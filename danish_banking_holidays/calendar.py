@@ -10,11 +10,11 @@ MIN_YEAR = 1583
 def _calculate_holidays(year: int) -> dict[date, str]:
     """Calculate holidays for a given year with caching."""
     if not isinstance(year, int) or year < MIN_YEAR:
-        raise ValueError(f"Year must be between {MIN_YEAR}")
+        raise ValueError(f"Year must be greater than or equal to {MIN_YEAR}")
 
     easter_sunday = easter(year)
     holidays = {
-        easter_sunday: "Påske",
+        easter_sunday: "Påskedag",
         easter_sunday + timedelta(days=-3): "Skærtorsdag",
         easter_sunday + timedelta(days=-2): "Langfredag",
         easter_sunday + timedelta(days=1): "2. Påskedag",
@@ -29,7 +29,7 @@ def _calculate_holidays(year: int) -> dict[date, str]:
     }
 
     if year > 2002:
-        holidays[date(year, 12, 31)] = "Nytåraftensdag"
+        holidays[date(year, 12, 31)] = "Nytårsaftensdag"
 
     if year < 2024:
         stor_bededag = easter_sunday + timedelta(days=26)
@@ -54,36 +54,52 @@ class DanishBankingCalendar:
         """Get all holidays for a given year."""
         return _calculate_holidays(year).copy()
 
-    def get_holiday(self, year: int, holiday_name: str) -> dict[date, str] | None:
-        """Get a specific holiday by name for a given year."""
-        holidays = _calculate_holidays(year)
-        for dt, name in holidays.items():
-            if name.lower() == holiday_name.lower():
-                return {dt: name}
+    def get_holiday(self, year: int, holiday_name: str) -> date | None:
+        """Get the date of a specific holiday by name for a given year."""
+        name_lower = holiday_name.strip().lower()
+        for dt, name in _calculate_holidays(year).items():
+            if name.lower() == name_lower:
+                return dt
+            # Also support searching "påske" for "Påskedag"
+            if name_lower == "påske" and name == "Påskedag":
+                return dt
         return None
 
     def get_holiday_name(self, check_date: date) -> str | None:
         """Get the name of the holiday for a given date, if it is a holiday."""
-        holidays = _calculate_holidays(check_date.year)
-        name = holidays.get(check_date)
-        if name is not None:
-            return name
-        return None
+        return _calculate_holidays(check_date.year).get(check_date)
 
     def is_holiday(self, check_date: date) -> bool:
         """Check if a given date is a holiday or weekend."""
         holidays = _calculate_holidays(check_date.year)
         return check_date in holidays or check_date.weekday() > 4
 
-    def next_business_day(self, from_date: date) -> date:
-        """Get the next business day after the given date."""
+    def is_bank_holiday(self, check_date: date) -> bool:
+        """Check if a given date is an official banking holiday (excluding regular weekends)."""
+        holidays = _calculate_holidays(check_date.year)
+        return check_date in holidays
+
+    def is_weekend(self, check_date: date) -> bool:
+        """Check if a given date falls on a weekend (Saturday or Sunday)."""
+        return check_date.weekday() > 4
+
+    def is_business_day(self, check_date: date) -> bool:
+        """Check if a given date is an open business/banking day."""
+        return not self.is_holiday(check_date)
+
+    def next_business_day(self, from_date: date, include_current: bool = False) -> date:
+        """Get the next business day after (or optionally on) the given date."""
+        if include_current and not self.is_holiday(from_date):
+            return from_date
         next_date = from_date + timedelta(days=1)
         while self.is_holiday(next_date):
             next_date += timedelta(days=1)
         return next_date
 
-    def previous_business_day(self, from_date: date) -> date:
-        """Get the previous business day before the given date."""
+    def previous_business_day(self, from_date: date, include_current: bool = False) -> date:
+        """Get the previous business day before (or optionally on) the given date."""
+        if include_current and not self.is_holiday(from_date):
+            return from_date
         prev_date = from_date + timedelta(days=-1)
         while self.is_holiday(prev_date):
             prev_date += timedelta(days=-1)

@@ -17,5 +17,8 @@ def test_easter(year, expected_date):
 
 
 def test_easter_invalid_year():
-    with pytest.raises(ValueError, match="Year must be greater than 1582"):
+    with pytest.raises(ValueError, match="Year must be greater than or equal to 1583"):
         easter(1582)
+
+    with pytest.raises(ValueError, match="Year must be greater than or equal to 1583"):
+        easter("2023")  # type: ignore[arg-type]

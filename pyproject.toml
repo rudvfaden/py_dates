@@ -7,19 +7,21 @@ name = "danish-banking-holidays"
 version = "0.2.1"
 description = "A package to calculate Danish banking holidays"
 readme = "README.md"
-requires-python = ">=3.6"
-license = "MIT"
+requires-python = ">=3.10"
+license = { text = "MIT" }
 authors = [{ name = "Rud Faden", email = "rudfaden@gmail.com" }]
 classifiers = [
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Operating System :: OS Independent",
 ]
 
 [project.urls]
 Homepage = "https://github.com/rudvfaden/py_dates"
 
-[tool.setuptools]
-packages = ["danish_banking_holidays"]
-
-[tool.setuptools.package-data]
-danish_banking_holidays = ["../LICENSE"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["danish_banking_holidays*"]

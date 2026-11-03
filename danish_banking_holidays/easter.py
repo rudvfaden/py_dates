@@ -14,8 +14,8 @@ def easter(year: int) -> date:
         >>> easter(2023)
         datetime.date(2023, 4, 9)
     """
-    if year < 1583:
-        raise ValueError("Year must be greater than 1582")
+    if not isinstance(year, int) or year < 1583:
+        raise ValueError("Year must be greater than or equal to 1583")
 
     golden_number = year % 19
     century = year // 100
